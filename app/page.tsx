@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { supabase } from "@/lib/supabase/config";
 import { Heart, ShieldCheck, Truck, Star, Award, CheckCircle } from "lucide-react";
@@ -111,7 +112,11 @@ export default async function Home() {
               Meet our latest available puppies. They are up-to-date on shots and ready for their forever homes.
             </p>
           </div>
-          <Link href="/browse" className="hidden md:inline-flex bg-cream-200 text-brown-900 px-6 py-3 rounded-full font-bold hover:bg-cream-300 transition-colors whitespace-nowrap items-center gap-2">
+          <Link
+            href="/browse"
+            aria-label="View all available puppies"
+            className="hidden md:inline-flex bg-cream-200 text-brown-900 px-6 py-3 rounded-full font-bold hover:bg-cream-300 transition-colors whitespace-nowrap items-center gap-2"
+          >
             View All Puppies <span aria-hidden="true">&rarr;</span>
           </Link>
         </div>
@@ -152,14 +157,23 @@ export default async function Home() {
                 key={idx}
                 className="bg-cream-50 p-8 rounded-3xl border border-cream-200 flex flex-col shadow-sm transition-all hover:scale-105"
               >
-                <div className="flex items-center gap-1 text-yellow-400 mb-6">
+                <div className="flex items-center gap-1 text-yellow-400 mb-6 font-bold">
                   {[...Array(review.rating)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 fill-current" />
                   ))}
+                  <span className="sr-only">{review.rating} out of 5 stars</span>
                 </div>
                 <p className="text-brown-800 italic leading-relaxed mb-8 flex-1">"{review.text}"</p>
                 <div className="flex items-center gap-4">
-                  <img src={review.image} alt={review.name} className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-sm" />
+                  <div className="relative w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
+                    <Image
+                      src={review.image}
+                      alt={review.name}
+                      fill
+                      sizes="56px"
+                      className="object-cover"
+                    />
+                  </div>
                   <div>
                     <h4 className="font-bold text-brown-900">{review.name}</h4>
                     <p className="text-xs text-brown-800 opacity-80">{review.location}</p>
@@ -183,27 +197,57 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           <div className="col-span-2 md:col-span-2 aspect-[4/3] rounded-3xl overflow-hidden shadow-sm group relative">
             <div className="absolute inset-0 bg-sand-600/0 group-hover:bg-sand-600/20 transition-colors z-10 duration-500 rounded-3xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1587539975099-5aecb74902d4?auto=format&fit=crop&w=800&q=80" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Bichon puppy playing" />
+            <Image
+              src="https://images.unsplash.com/photo-1587539975099-5aecb74902d4?auto=format&fit=crop&w=800&q=80"
+              alt="Bichon Frise puppy playing in the grass"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
 
           <div className="aspect-square rounded-3xl overflow-hidden shadow-sm group relative">
             <div className="absolute inset-0 bg-sand-600/0 group-hover:bg-sand-600/20 transition-colors z-10 duration-500 rounded-3xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1652900186700-1266fdafd5a7?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Bichon Frise" />
+            <Image
+              src="https://images.unsplash.com/photo-1652900186700-1266fdafd5a7?auto=format&fit=crop&w=600&q=80"
+              alt="Portrait of a fluffy white Bichon Frise"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
 
           <div className="aspect-square rounded-3xl overflow-hidden shadow-sm group relative">
             <div className="absolute inset-0 bg-sand-600/0 group-hover:bg-sand-600/20 transition-colors z-10 duration-500 rounded-3xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1696254643239-eeb065e3f35a?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="White dog running" />
+            <Image
+              src="https://images.unsplash.com/photo-1696254643239-eeb065e3f35a?auto=format&fit=crop&w=600&q=80"
+              alt="White dog running happily outdoors"
+              fill
+              sizes="(max-width: 768px) 50vw, 25vw"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
 
           <div className="aspect-square rounded-3xl overflow-hidden shadow-sm group hidden md:block relative">
             <div className="absolute inset-0 bg-sand-600/0 group-hover:bg-sand-600/20 transition-colors z-10 duration-500 rounded-3xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1554634242-a653caa56834?auto=format&fit=crop&w=600&q=80" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Smiling puppy" />
+            <Image
+              src="https://images.unsplash.com/photo-1554634242-a653caa56834?auto=format&fit=crop&w=600&q=80"
+              alt="Smiling white puppy look directly at the camera"
+              fill
+              sizes="25vw"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
 
           <div className="col-span-2 md:col-span-3 aspect-[21/9] rounded-3xl overflow-hidden shadow-sm group relative">
             <div className="absolute inset-0 bg-sand-600/0 group-hover:bg-sand-600/20 transition-colors z-10 duration-500 rounded-3xl pointer-events-none"></div>
-            <img src="https://images.unsplash.com/photo-1557674751-0208d529d2a1?auto=format&fit=crop&w=1200&q=80" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Puppy portrait" />
+            <Image
+              src="https://images.unsplash.com/photo-1557674751-0208d529d2a1?auto=format&fit=crop&w=1200&q=80"
+              alt="Beautiful wide portrait of a group of white puppies"
+              fill
+              sizes="(max-width: 768px) 100vw, 75vw"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+            />
           </div>
         </div>
       </section>
@@ -222,10 +266,18 @@ export default async function Home() {
             Contact us today to ask any questions or start the adoption application process. Spaces in upcoming litters fill quickly!
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link href="/browse" className="bg-white text-sand-600 px-10 py-5 rounded-full font-bold text-xl hover:bg-cream-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 w-full sm:w-auto">
+            <Link
+              href="/browse"
+              aria-label="Browse all available puppies"
+              className="bg-white text-sand-600 px-10 py-5 rounded-full font-bold text-xl hover:bg-cream-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 w-full sm:w-auto"
+            >
               Find Your Puppy
             </Link>
-            <Link href="/login" className="bg-brown-900 border border-transparent text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brown-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 w-full sm:w-auto">
+            <Link
+              href="/login"
+              aria-label="Apply for puppy adoption"
+              className="bg-brown-900 border border-transparent text-white px-10 py-5 rounded-full font-bold text-xl hover:bg-brown-800 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1 w-full sm:w-auto"
+            >
               Apply For Adoption
             </Link>
           </div>
