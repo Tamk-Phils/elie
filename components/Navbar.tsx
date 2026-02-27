@@ -47,8 +47,12 @@ export default function Navbar() {
                     {/* Brand/Logo */}
                     <div className="flex items-center">
                         <Link href="/" className="flex items-center gap-3 group">
-                            <div className="bg-sand-600 p-2 rounded-2xl group-hover:rotate-12 transition-transform duration-300 shadow-lg shadow-sand-600/20">
-                                <Bone className="h-6 w-6 text-white" />
+                            <div className="relative h-12 w-12 rounded-2xl overflow-hidden group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-sand-600/20">
+                                <img
+                                    src="/images/logo.png"
+                                    alt="Ellie's Sanctuary Logo"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                             <div className="flex flex-col">
                                 <span className={`text-xl font-black tracking-tighter transition-colors ${scrolled ? "text-brown-900" : "text-brown-900"
@@ -128,16 +132,9 @@ export default function Navbar() {
                             <div className="flex items-center gap-3">
                                 <Link
                                     href="/login"
-                                    className="px-6 py-2.5 rounded-2xl text-sm font-bold text-brown-900 hover:bg-cream-100 transition-all"
+                                    className="px-8 py-2.5 rounded-2xl text-sm font-bold text-white bg-sand-600 hover:bg-sand-500 transition-all shadow-lg shadow-sand-600/30 flex items-center gap-2"
                                 >
                                     Sign In
-                                </Link>
-                                <Link
-                                    href="/browse"
-                                    className="px-6 py-2.5 rounded-2xl text-sm font-bold text-white bg-sand-600 hover:bg-sand-500 transition-all shadow-lg shadow-sand-600/30 flex items-center gap-2"
-                                >
-                                    <Heart className="h-4 w-4" />
-                                    Donate
                                 </Link>
                             </div>
                         )}
@@ -214,23 +211,13 @@ export default function Navbar() {
                                 </button>
                             </>
                         ) : (
-                            <div className="flex flex-col gap-3">
-                                <Link
-                                    href="/login"
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-center p-4 rounded-2xl bg-cream-100 text-brown-900 font-bold"
-                                >
-                                    Sign In
-                                </Link>
-                                <Link
-                                    href="/browse"
-                                    onClick={() => setIsOpen(false)}
-                                    className="flex items-center justify-center gap-2 p-4 rounded-2xl bg-sand-600 text-white font-bold shadow-lg shadow-sand-600/30"
-                                >
-                                    <Heart className="h-5 w-5" />
-                                    Donate & Help
-                                </Link>
-                            </div>
+                            <Link
+                                href="/login"
+                                onClick={() => setIsOpen(false)}
+                                className="flex items-center justify-center p-4 rounded-2xl bg-sand-600 text-white font-bold shadow-lg shadow-sand-600/30"
+                            >
+                                Sign In
+                            </Link>
                         )}
                     </div>
                 </div>

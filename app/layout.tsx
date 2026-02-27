@@ -21,10 +21,10 @@ export const metadata: Metadata = {
     siteName: "Ellie's Bichon Frise Sanctuary",
     images: [
       {
-        url: "/images/hero-bg.png",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Adorable Bichon Frise Puppy",
+        alt: "Ellie's Bichon Frise Sanctuary Logo",
       },
     ],
     locale: "en_US",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ellie's Bichon Frise Sanctuary",
     description: "Premium Bichon Frise puppies delivered safely to your door.",
-    images: ["/images/hero-bg.png"],
+    images: ["/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
