@@ -30,6 +30,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         // Initial session fetch
         const initializeAuth = async () => {
             try {
+                // Try to get cached role first to eliminate flash
+                const cachedRole = typeof window !== 'undefined' ? sessionStorage.getItem('user-role') : null;
+                if (cachedRole) {
+                    setRole(cachedRole as "user" | "admin");
+                }
+
                 const { data: { session } } = await supabase.auth.getSession();
 
                 if (session?.user) {
@@ -39,7 +45,16 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                         .select("role")
                         .eq("id", session.user.id)
                         .single();
-                    setRole((data?.role as "user" | "admin") || "user");
+
+                    const newRole = (data?.role as "user" | "admin") || "user";
+                    setRole(newRole);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.setItem('user-role', newRole);
+                    }
+                } else {
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.removeItem('user-role');
+                    }
                 }
             } catch (error) {
                 console.error("Error initially confirming session", error);
@@ -55,16 +70,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             async (event, session) => {
                 if (session?.user) {
                     setUser(session.user);
-                    // Only fetch role if we don't have it or if user changed
                     const { data } = await supabase
                         .from("users")
                         .select("role")
                         .eq("id", session.user.id)
                         .single();
-                    setRole((data?.role as "user" | "admin") || "user");
+
+                    const newRole = (data?.role as "user" | "admin") || "user";
+                    setRole(newRole);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.setItem('user-role', newRole);
+                    }
                 } else {
                     setUser(null);
                     setRole(null);
+                    if (typeof window !== 'undefined') {
+                        sessionStorage.removeItem('user-role');
+                    }
                 }
                 setLoading(false);
             }

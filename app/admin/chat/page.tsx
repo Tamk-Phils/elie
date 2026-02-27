@@ -68,10 +68,20 @@ export default function AdminChat() {
                 event: '*',
                 schema: 'public',
                 table: 'conversations'
-            }, (payload: any) => {
+            }, async (payload: any) => {
                 if (payload.eventType === 'INSERT') {
-                    setConversations(prev => [payload.new, ...prev]);
-                    fetchConversations(); // Still fetch to get joined user info
+                    // For new conversations, we still need to fetch user info once
+                    const { data } = await supabase
+                        .from("users")
+                        .select("email")
+                        .eq("id", payload.new.user_id)
+                        .single();
+
+                    const newConv = {
+                        ...payload.new,
+                        user_email: data?.email || "Unknown User"
+                    };
+                    setConversations(prev => [newConv, ...prev]);
                 } else if (payload.eventType === 'UPDATE') {
                     setConversations(prev => prev.map(c => c.id === payload.new.id ? { ...c, ...payload.new } : c));
                 } else if (payload.eventType === 'DELETE') {

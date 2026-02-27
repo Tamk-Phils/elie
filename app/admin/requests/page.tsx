@@ -48,8 +48,18 @@ export default function AdminAdoptionRequests() {
 
         const subscription = supabase
             .channel('public:adoption_requests_admin')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'adoption_requests' }, () => {
-                fetchRequests();
+            .on('postgres_changes', {
+                event: '*',
+                schema: 'public',
+                table: 'adoption_requests'
+            }, (payload: any) => {
+                if (payload.eventType === 'INSERT') {
+                    setRequests(prev => [payload.new, ...prev]);
+                } else if (payload.eventType === 'UPDATE') {
+                    setRequests(prev => prev.map(r => r.id === payload.new.id ? { ...r, ...payload.new } : r));
+                } else if (payload.eventType === 'DELETE') {
+                    setRequests(prev => prev.filter(r => r.id === payload.old.id));
+                }
             })
             .subscribe();
 
