@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/lib/supabase/context";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import FloatingChatButton from "@/components/FloatingChatButton";
+import ConditionalLayout from "@/components/ConditionalLayout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,10 +49,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} min-h-screen flex flex-col bg-cream-50 text-brown-900`}>
         <AuthProvider>
-          <Navbar />
-          <main className="flex-grow pt-20">{children}</main>
-          <FloatingChatButton />
-          <Footer />
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
         </AuthProvider>
       </body>
     </html>

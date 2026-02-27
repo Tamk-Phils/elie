@@ -7,11 +7,14 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase/config";
 import { usePathname } from "next/navigation";
 
+import { useRouter } from "next/navigation";
+
 export default function Navbar() {
     const { user, role } = useAuth();
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -24,6 +27,8 @@ export default function Navbar() {
     const handleLogout = async () => {
         try {
             await supabase.auth.signOut();
+            router.refresh();
+            router.push("/");
         } catch (error) {
             console.error("Logout failed:", error);
         }

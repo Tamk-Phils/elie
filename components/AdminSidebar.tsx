@@ -32,8 +32,11 @@ interface AdminSidebarProps {
     userEmail?: string;
 }
 
+import { useRouter } from "next/navigation";
+
 export default function AdminSidebar({ collapsed, setCollapsed, userEmail }: AdminSidebarProps) {
     const pathname = usePathname();
+    const router = useRouter();
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -46,7 +49,13 @@ export default function AdminSidebar({ collapsed, setCollapsed, userEmail }: Adm
     }, []);
 
     const handleLogout = async () => {
-        await supabase.auth.signOut();
+        try {
+            await supabase.auth.signOut();
+            router.refresh();
+            router.push("/");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     };
 
     return (
@@ -77,8 +86,8 @@ export default function AdminSidebar({ collapsed, setCollapsed, userEmail }: Adm
                             key={item.href}
                             href={item.href}
                             className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all group ${active
-                                    ? "bg-sand-400 text-brown-900"
-                                    : "text-white/70 hover:bg-white/5 hover:text-white"
+                                ? "bg-sand-400 text-brown-900"
+                                : "text-white/70 hover:bg-white/5 hover:text-white"
                                 } ${collapsed ? "justify-center" : ""}`}
                             title={collapsed ? item.label : ""}
                         >
