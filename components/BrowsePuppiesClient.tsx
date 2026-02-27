@@ -42,7 +42,12 @@ export default function BrowsePuppiesClient({ initialPuppies }: { initialPuppies
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {puppies.map((pup) => (
-                <Link key={pup.id} href={`/puppies/${pup.id}`} className="group block">
+                <Link
+                    key={pup.id}
+                    href={`/puppies/${pup.id}`}
+                    className="group block"
+                    aria-label={`View details for ${pup.name}`}
+                >
                     <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-cream-200">
                         <div className="aspect-[4/3] bg-cream-100 overflow-hidden relative">
                             {pup.puppy_images && pup.puppy_images.length > 0 ? (

@@ -29,6 +29,7 @@ export default function PuppyDetailsClient({ puppy }: { puppy: Puppy }) {
                             alt={puppy.name}
                             fill
                             priority
+                            fetchPriority="high"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
                             className="object-cover"
                         />
@@ -42,6 +43,7 @@ export default function PuppyDetailsClient({ puppy }: { puppy: Puppy }) {
                             <button
                                 key={idx}
                                 onClick={() => setMainImg(img)}
+                                aria-label={`View puppy image ${idx + 1}`}
                                 className={`aspect-square rounded-xl overflow-hidden border-2 transition-colors relative ${mainImg === img ? 'border-sand-600' : 'border-transparent hover:border-cream-200'}`}
                             >
                                 <Image
@@ -88,10 +90,18 @@ export default function PuppyDetailsClient({ puppy }: { puppy: Puppy }) {
                 <div className="border-t border-cream-200 pt-8 mt-8 space-y-4">
                     {puppy.status === "available" ? (
                         <div className="flex flex-col sm:flex-row gap-4">
-                            <Link href={`/checkout/deposit/${puppy.id}`} className="flex-1 bg-sand-600 text-white text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-sand-500 transition shadow-md">
+                            <Link
+                                href={`/checkout/deposit/${puppy.id}`}
+                                aria-label={`Start adoption process for ${puppy.name}`}
+                                className="flex-1 bg-sand-600 text-white text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-sand-500 transition shadow-md"
+                            >
                                 Adopt {puppy.name}
                             </Link>
-                            <Link href={`/chat?about=${puppy.id}`} className="flex-1 bg-white text-brown-900 border-2 border-cream-200 text-center px-8 py-4 rounded-full font-bold text-lg hover:border-sand-600 transition shadow-sm">
+                            <Link
+                                href={`/chat?about=${puppy.id}`}
+                                aria-label={`Ask a question about ${puppy.name}`}
+                                className="flex-1 bg-white text-brown-900 border-2 border-cream-200 text-center px-8 py-4 rounded-full font-bold text-lg hover:border-sand-600 transition shadow-sm"
+                            >
                                 Ask a Question
                             </Link>
                         </div>

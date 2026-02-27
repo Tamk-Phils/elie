@@ -34,6 +34,7 @@ export default function HomeHeroClient() {
                     alt="Happy Bichon Frise puppy looking bright and joyful"
                     fill
                     priority
+                    fetchPriority="high"
                     className="object-cover object-center mix-blend-overlay"
                 />
             </motion.div>
@@ -59,7 +60,11 @@ export default function HomeHeroClient() {
                     </motion.p>
 
                     <motion.div variants={fadeIn} className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                        <Link href="/browse" className="bg-brown-900 text-white px-8 py-5 rounded-full font-bold text-xl hover:bg-brown-800 transition shadow-2xl hover:shadow-brown-900/50 hover:-translate-y-1 flex items-center justify-center gap-2">
+                        <Link
+                            href="/browse"
+                            aria-label="Browse all available Bichon Frise puppies"
+                            className="bg-brown-900 text-white px-8 py-5 rounded-full font-bold text-xl hover:bg-brown-800 transition shadow-2xl hover:shadow-brown-900/50 hover:-translate-y-1 flex items-center justify-center gap-2"
+                        >
                             View Available Puppies <span aria-hidden="true">&rarr;</span>
                         </Link>
                     </motion.div>

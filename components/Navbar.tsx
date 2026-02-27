@@ -102,6 +102,7 @@ export default function Navbar() {
                                     href="/chat"
                                     className="p-2 text-brown-800 hover:text-sand-600 hover:bg-sand-50 rounded-xl transition-all relative group"
                                     title="Live Chat"
+                                    aria-label="Open live chat"
                                 >
                                     <MessageCircle className="h-5 w-5" />
                                     <span className="absolute top-1 right-1 w-2 h-2 bg-sand-500 rounded-full border-2 border-white" />
@@ -129,6 +130,7 @@ export default function Navbar() {
                                     onClick={handleLogout}
                                     className="p-2 text-brown-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-all"
                                     title="Logout"
+                                    aria-label="Log out of your account"
                                 >
                                     <LogOut className="h-5 w-5" />
                                 </button>
@@ -156,6 +158,7 @@ export default function Navbar() {
                         <button
                             onClick={() => setIsOpen(!isOpen)}
                             className="p-2 text-brown-900 bg-cream-100 rounded-xl hover:bg-cream-200 transition-all"
+                            aria-label={isOpen ? "Close mobile menu" : "Open mobile menu"}
                         >
                             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
                         </button>

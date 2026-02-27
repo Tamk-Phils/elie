@@ -36,7 +36,11 @@ export default function FeaturedPuppiesClient({ initialPuppies }: { initialPuppi
         >
             {initialPuppies.map((pup) => (
                 <motion.div variants={fadeIn} key={pup.id}>
-                    <Link href={`/puppies/${pup.id}`} className="group block h-full">
+                    <Link
+                        href={`/puppies/${pup.id}`}
+                        className="group block h-full"
+                        aria-label={`View details for ${pup.name}`}
+                    >
                         <div className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-cream-200 flex flex-col h-full transform group-hover:-translate-y-2">
                             <div className="aspect-[4/3] bg-cream-100 overflow-hidden relative">
                                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur text-brown-900 px-3 py-1 rounded-full text-xs font-bold z-10 shadow-sm border border-cream-200">
